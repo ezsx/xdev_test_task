@@ -33,6 +33,8 @@ services:
       file: docker-services-mush.yml
       service: nginx
 
+
+  # --- PYTEST --- 
   pytest:
     extends:
       file: docker-services-mush.yml

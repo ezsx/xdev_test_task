@@ -121,6 +121,11 @@
 - [start-all-win.ps1](start-all-win.ps1) 
 - [start-all.sh](start-all.sh)
 
+(не забыть убрать .example)
+
+- [.env.example](.env.example)
+- [mush-service/.env.example](mush-service/.env.example)
+
 ---
 
 
