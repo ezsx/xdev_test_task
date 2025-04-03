@@ -1,0 +1,45 @@
+name: mush  # project name https://docs.docker.com/reference/compose-file/version-and-name/
+
+networks:
+  mainnet:
+
+services:
+  # --- PostgreSQL for MUSH ---
+  postgres-mush:
+    extends:
+      file: docker-services-mush.yml
+      service: postgres-mush
+
+
+  # --- Redis for MUSH ---
+  redis-mush:
+    extends:
+      file: docker-services-mush.yml
+      service: redis-mush
+
+
+  # --- FastAPI for MUSH ---
+  mush-fastapi:
+    extends:
+      file: docker-services-mush.yml
+      service: mush-fastapi
+    env_file:
+      - ./mush-service/.env
+
+
+  # --- NGINX ---
+  nginx:
+    extends:
+      file: docker-services-mush.yml
+      service: nginx
+
+  pytest:
+    extends:
+      file: docker-services-mush.yml
+      service: pytest
+
+volumes:
+  postgres_mush_data:
+  redis_mush_data:
+  static_data:
+

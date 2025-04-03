@@ -1,0 +1,91 @@
+[flake8]
+max-line-length = 150
+ignore = E125,E203,F401,W503,WPS100,WPS110,WPS111,WPS115,WPS201,WPS202,WPS204,WPS210,WPS211,WPS212,WPS213,WPS214,WPS217,WPS219,WPS220,WPS221,WPS226,WPS229,WPS230,WPS231,WPS232,WPS237,WPS238,WPS300,WPS301,WPS327,WPS332,WPS335,WPS336,WPS338,WPS347,WPS358,WPS400,WPS404,WPS407,WPS411,WPS412,WPS420,WPS421,WPS430,WPS432,WPS457,WPS458,WPS463,WPS501,WPS504,WPS505,WPS529,WPS601,WPS604,WPS615
+exclude =
+    .git,
+    __pycache__,
+    venv,
+    .\.venv,
+    *etl/etl/utils,
+    */migrations,
+    */tests,
+    */test,
+    *.venv,
+
+# Используем более щадящие пороги для сложности:
+max-complexity = 20
+max-cognitive-complexity = 20
+
+; ; # Отключаем правила, которые считаем слишком строгими или неуместными в нашем проекте:
+; ignore =  
+;     ; # Ошибки форматирования:
+;     E125,  # "Continuation line with same indent as next logical line" — избыточное требование к стилю отступов  
+;     E203,  # "Whitespace before ':'" — не согласуется с рекомендациями PEP 8  
+;     F401,  # "Module imported but unused" — иногда модули импортируются для типизации или других целей  
+;     W503,  # "Line break before binary operator" — противоречит современным рекомендациям PEP 8  
+
+;     ; # Правила наименования переменных:
+;     WPS100,  # "Found wrong module name" — жесткие требования к именованию модулей могут быть лишними  
+;     WPS110,  # "Found wrong variable name" — иногда имена вроде `data`, `result` полностью уместны  
+;     WPS111,  # "Found too short variable name" — в генераторах и циклах однобуквенные переменные нормальны  
+;     WPS115,  # "Found upper-case constant in a class" — иногда константы в классах пишут в верхнем регистре  
+
+;     ; # Ограничения на использование различных конструкций:
+;     WPS201,  # "Found module with too many imports" — иногда файлы требуют большого количества импортов  
+;     WPS202,  # "Found too many module members" — ограничение количества классов и функций избыточно  
+;     WPS204,  # "Found overused expression" — правило не всегда корректно определяет сложность выражения  
+;     WPS210,  # "Found too many local variables" — в сложных функциях это неизбежно  
+;     WPS211,  # "Found too many arguments" — иногда высокая аргументность оправдана  
+;     WPS212,  # "Found too many return statements" — множественные return улучшают читаемость кода  
+;     WPS213,  # "Found too many expressions in function" — ограничение на количество выражений избыточно  
+;     WPS214,  # "Found too many methods in a class" — сложные классы могут содержать много методов  
+;     WPS217,  # "Found too many elif branches" — в реальной разработке длинные ветвления встречаются  
+;     WPS219,  # "Found too many else cases" — else часто используется по делу  
+;     WPS220,  # "Found too deep nesting" — сложная логика иногда требует глубоких уровней вложенности  
+;     WPS221,  # "Found line with high Jones Complexity" — порог по умолчанию слишком строгий  
+;     WPS226,  # "Found string constant overuse" — повторяющиеся строки в коде не всегда проблема  
+;     WPS229,  # "Found too many public instance attributes" — иногда в классах действительно много атрибутов  
+;     WPS230,  # "Found too many instance attributes" — сложные объекты могут требовать множество атрибутов  
+;     WPS231,  # "Found function with too many local variables" — в крупных функциях это оправдано  
+;     WPS232,  # "Found function with too many statements" — сложные функции могут состоять из многих выражений  
+;     WPS237,  # "Found too many imported names" — иногда большое количество импортов оправдано  
+;     WPS238,  # "Found too many raises in a function" — многократные `raise` часто облегчают обработку ошибок  
+
+;     ; # Ограничения на использование структур данных:
+;     WPS300,  # "Found local folder import" — в некоторых проектах локальные импорты необходимы  
+;     WPS301,  # "Found dotted raw import" — избыточное ограничение, иногда нужны такие импорты  
+;     WPS327,  # "Found implicit string concatenation" — вполне нормальная практика в некоторых случаях  
+;     WPS332,  # "Found multiline conditions" — длинные условия иногда необходимы для читаемости  
+;     WPS335,  # "Found incorrect order of methods in a class" — порядок методов не всегда критичен  
+;     WPS336,  # "Found mutable class default" — иногда мутабельные значения в дефолтах оправданы  
+;     WPS338,  # "Found incorrect `super()` call" — строгая проверка вызовов `super()` не всегда оправдана  
+;     WPS347,  # "Found useless lambda" — лямбды могут использоваться для упрощения кода  
+;     WPS358,  # "Found `+` operator for string concatenation" — иногда сложение строк уместнее `.join()`  
+
+;     ; # Кодстайл и архитектурные правила:
+;     WPS400,  # "Found wrong docstring" — не всегда форматирование документации критично  
+;     WPS404,  # "Found complex default arguments" — иногда сложные дефолтные значения оправданы  
+;     WPS407,  # "Found mutable module constant" — бывают случаи, когда изменяемые константы полезны  
+;     WPS411,  # "Found empty line inside a docstring" — пустые строки могут повышать читаемость  
+;     WPS412,  # "Found `__init__.py` file with logic" — иногда в `__init__.py` необходимо размещать код  
+
+;     ; # Ограничения на использование ООП:
+;     WPS420,  # "Found wrong `__slots__` usage" — `__slots__` не всегда нужен в классах  
+;     WPS421,  # "Found protected attribute usage" — защищенные атрибуты можно использовать осознанно  
+;     WPS430,  # "Found nested function" — вложенные функции иногда делают код читаемее  
+;     WPS432,  # "Found magic number" — иногда числа в коде уместны без вынесения в константы  
+
+;     ; # Разное:
+;     WPS457,  # "Found private name usage" — использование приватных имен не всегда является ошибкой  
+;     WPS458,  # "Found bare `except:` block" — иногда обработка всех исключений оправдана  
+;     WPS463,  # "Found implicit enumerate index" — иногда явный индекс в `enumerate()` не нужен  
+;     WPS501,  # "Found `else` case in loop without `break`" — else в циклах полезен и без break  
+;     WPS504,  # "Found wrong `@staticmethod` decorator usage" — строгое ограничение на `staticmethod` избыточно  
+;     WPS505,  # "Found incorrect `@classmethod` decorator usage" — аналогично предыдущему  
+;     WPS529,  # "Found implicit `yield from` usage" — `yield from` часто повышает читаемость  
+
+;     ; # Правила, ограничивающие использование Python-фич:
+;     WPS601,  # "Found shadowed built-in name" — затенение встроенных функций бывает оправдано  
+;     WPS604,  # "Found incorrect node inside a comprehension" — не всегда генераторы должны быть простыми  
+;     WPS615,  # "Found context manager with too many variables" — иногда много переменных в контекстном менеджере оправдано  
+

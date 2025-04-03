@@ -1,0 +1,94 @@
+
+services:
+  # --- PostgreSQL for MUSH ---
+  postgres-mush:
+    image: postgres:13
+    container_name: postgres-mush
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB_MUSH}
+      POSTGRES_USER: ${POSTGRES_USER_MUSH}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD_MUSH}
+    networks:
+      mainnet:
+    volumes:
+      - postgres_mush_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER_MUSH}"]
+      interval: 10s
+      retries: 5
+      timeout: 5s
+    restart: always
+
+  # --- Redis for MUSH ---
+  redis-mush:
+    image: redis:6.2-alpine
+    container_name: redis-mush
+    command: ["redis-server", "--appendonly", "yes"]
+    networks:
+      mainnet:
+    volumes:
+      - redis_mush_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      retries: 5
+    restart: always
+
+  # --- FastAPI for MUSH ---
+  mush-fastapi:
+    build:
+      context: ./mush-service
+      dockerfile: Dockerfile
+    container_name: mush-fastapi
+    depends_on:
+      postgres-mush:
+        condition: service_healthy
+      redis-mush:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "python /opt/app/health_check.py"]
+      interval: 10s
+      retries: 5
+      timeout: 5s
+    environment:
+      - PYTHONPATH=/opt/app/src:/opt/lib
+    networks:
+      mainnet:
+    volumes:
+      - ./mush-service:/opt/app
+      # - ./common:/opt/lib/common
+    env_file:
+      - ./mush-service/.env
+    restart: always
+
+  # --- NGINX --- 
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/configs:/etc/nginx/conf.d:ro
+      - static_data:/data/static
+    depends_on:
+      mush-fastapi:
+        condition: service_healthy
+    networks:
+      mainnet:
+    ports:
+      - "8000:80"
+    restart: always
+
+  pytest:
+    image: run_pytest:latest
+    build:
+      context: ./mush-service/tests
+      dockerfile: Dockerfile    
+    container_name: pytest
+    depends_on:
+      mush-fastapi:
+        condition: service_healthy
+    volumes:
+      - ./mush-service/tests:/opt/tests
+    networks:
+      mainnet:
+    profiles: [pytest]

@@ -1,0 +1,10 @@
+aiohttp==3.8.6
+fastapi==0.111.0                # Основной фреймворк
+redis==5.0.4                    # Подключение к Redis
+pydantic==2.10.0                # Валидация данных
+pydantic-settings==2.2.1        # Удобная работа с настройками
+sqlalchemy[asyncio]==2.0.20     # Асинхронная работа с PostgreSQL
+asyncpg==0.27.0                 # Драйвер для PostgreSQL
+alembic==1.11.0                 # Миграции базы данных
+orjson==3.9.0                   # Быстрая сериализация JSON
+httpx==0.24.0
