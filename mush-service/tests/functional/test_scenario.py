@@ -5,6 +5,7 @@ from settings import logger
 TEST_FILES = [
     "/opt/tests/functional/src/test_mush.py",
     "/opt/tests/functional/src/test_basket.py",
+    "/opt/tests/functional/src/test_mush_busket_ete.py",
     # Add any additional files you want to run here
 ]
 
@@ -33,7 +34,7 @@ def run_tests():
         logger.info("All tests passed successfully.")
     else:
         logger.error("Some tests failed. Check the logs for details.")
-        # exit(1)
+        exit(1)
 
 
 if __name__ == "__main__":

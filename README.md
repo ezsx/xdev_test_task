@@ -98,7 +98,8 @@
 │   │   └── basket_fixtures.py       # Фикстуры для создания корзинок и управления ими
 │   └── src
 │       ├── test_mush.py             # Функциональные тесты для эндпоинтов грибов
-│       └── test_basket.py           # Функциональные тесты для эндпоинтов корзинок
+│       ├── test_basket.py           # Функциональные тесты для эндпоинтов корзинок
+│       └── test_mush_busket_ete.py  # end-to-end тест для грибов и корзинок
 │   ├── Dockerfile                   # Dockerfile для сборки Тестов
 │   └── ....
 ├── docker-services-mush.yml         # Объявление сервисов с профилем для тестов
@@ -120,12 +121,13 @@
 Для поднятия всех необходимых сервисов (FastAPI, PostgreSQL, Redis, NGINX) используется Docker Compose с профилированием для тестового режима. В директории проекта приведены скрипты для запуска на Win и Linux: 
 - [start-all-win.ps1](start-all-win.ps1) 
 - [start-all.sh](start-all.sh)
+- 
 
-(не забыть убрать .example)
+(не забыть убрать .example из .env.example)
 
 - [.env.example](.env.example)
 - [mush-service/.env.example](mush-service/.env.example)
-
+- [mush-service/tests/functional/.env.example)](mush-service/tests/functional/.env.example)
 ---
 
 

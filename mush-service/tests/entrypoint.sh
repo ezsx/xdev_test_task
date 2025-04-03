@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Запуск тестов после готовности сервисов
+sleep 30
 echo "Starting tests..."
 if python3 /opt/tests/functional/test_scenario.py; then
   echo "All tests passed successfully."

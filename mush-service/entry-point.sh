@@ -6,6 +6,7 @@
 
 
 # Применяем все миграции
+sleep 10
 echo "Applying database migrations..."
 alembic upgrade head
 
